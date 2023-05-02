@@ -75,4 +75,17 @@ public class ExpenseDTO {
     public void setDateString(String dateString) {
         this.dateString = dateString;
     }
+
+    @Override
+    public String toString() {
+        return "ExpenseDTO{" +
+                "id=" + id +
+                ", expenseId='" + expenseId + '\'' +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", amount=" + amount +
+                ", date=" + date +
+                ", dateString='" + dateString + '\'' +
+                '}';
+    }
 }
