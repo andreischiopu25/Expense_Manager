@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.sql.Date;
 
 public class ExpenseDTO {
 
