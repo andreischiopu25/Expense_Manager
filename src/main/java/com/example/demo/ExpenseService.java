@@ -28,6 +28,7 @@ public class ExpenseService {
            List<ExpenseDTO> expenseList = list.stream().map(this::mapToDTO).collect(Collectors.toList());
            return expenseList;
         }
+
         private ExpenseDTO mapToDTO (Expense expense){
           ExpenseDTO expenseDTO = new ExpenseDTO();
           expenseDTO.setId(expense.getId());
@@ -59,7 +60,9 @@ public class ExpenseService {
             expense.setDescription(expenseDTO.getDescription());
             expense.setAmount (expenseDTO.getAmount());
         //generate the expense id
-            expense.setExpenseId(UUID.randomUUID().toString());
+            if (expense.getId() == null){
+                expense.setExpenseId(UUID.randomUUID().toString());
+            }else expense.setExpenseId(expenseDTO.getExpenseId());
         //set the expense date
             expense.setDate(DateTimeUtil.convertStringToDate(expenseDTO.getDateString()));
 
@@ -67,8 +70,17 @@ public class ExpenseService {
     }
 
     public void deleteExpense(String id){
-        Expense existingExpense = expenseRepository.findByExpenseId(id).orElseThrow( ()->new RuntimeException("Expense not found for the ID"));
+        Expense existingExpense = getExpense(id);
         expenseRepository.delete(existingExpense);
+    }
+
+    public ExpenseDTO getExpenseById (String id){
+        Expense existingExpense = getExpense(id);
+        return mapToDTO(existingExpense);
+    }
+
+    public Expense getExpense(String id){
+        return expenseRepository.findByExpenseId(id).orElseThrow( ()->new RuntimeException("Expense not found for the ID"));
     }
 
 }

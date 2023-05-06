@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Expense</title>
-    <link rel="stylesheet" href="@{/css/jquery-ui.css}" />
+    <link rel="stylesheet" href="@{src/main/resources/static/cs/jquery-ui.css}" />
 </head>
 <body>
       <h1>Create New Expense</h1>
@@ -13,17 +13,20 @@
             <br/><br/>
             <input type ="text" placeholder="Enter expense amount" th:field="*{amount}"/>
             <br/><br/>
-            <input type="date" th:field="*{dateString}"/>
+            <input type="date" th:field="*{dateString}" placeholder="dd/mm/yyyy" id="createdAt"/>
             <br/><br/>
-            <textarea rows="5" placeholder="Enter description" th:field="*{description}" id="createdAt"></textarea>
+            <textarea rows="5" placeholder="Enter description" th:field="*{description}" ></textarea>
             <br/><br/>
             <button type ="submit"> Submit</button>
+
+            <input type ="hidden" th:field="*{id}"/>
+            <input type ="hidden" th:field="*{expenseId}"/>
       </form>
       <div>
           <a th:href="@{/expenses}">Back to Expenses</a>
       </div>
       <script>th:src="@{js/jquery.js}"</script>
       <script>th:src="@{js/jquery-ui.js}"</script>
-      <script>th:src="@{js/expense-form.js}"</script>
+      <script>th:src="@{D://UTM/Java/licenta/JPA/demo/src/main/resources/static/js/expense-form.js}"</script>
 </body>
 </html>
