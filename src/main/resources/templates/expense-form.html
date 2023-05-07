@@ -3,7 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Create Expense</title>
-    <link rel="stylesheet" href="@{src/main/resources/static/cs/jquery-ui.css}" />
+ <!--     <link rel="stylesheet"  th:href="@{/js/jquery-ui/jquery-ui.css}"/>
+      <link rel="stylesheet"  th:href="@{/js/jquery-ui/jquery-ui.structure.css}"/>
+      <link rel="stylesheet"  th:href="@{/js/jquery-ui/jquery-ui.theme.css}"/>
+      <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+      <script th:src="@{/js/expense-form.js}" ></script>
+ -->
+
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+      <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+      <script>
+            $( function() {
+                  $( "#createdAt" ).datepicker();
+            } );
+      </script>
+
 </head>
 <body>
       <h1>Create New Expense</h1>
@@ -13,7 +29,7 @@
             <br/><br/>
             <input type ="text" placeholder="Enter expense amount" th:field="*{amount}"/>
             <br/><br/>
-            <input type="date" th:field="*{dateString}" placeholder="dd/mm/yyyy" id="createdAt"/>
+            <input type="text" th:field="*{dateString}" placeholder="dd/mm/yyyy" id="createdAt"/>
             <br/><br/>
             <textarea rows="5" placeholder="Enter description" th:field="*{description}" ></textarea>
             <br/><br/>
@@ -25,8 +41,6 @@
       <div>
           <a th:href="@{/expenses}">Back to Expenses</a>
       </div>
-      <script>th:src="@{js/jquery.js}"</script>
-      <script>th:src="@{js/jquery-ui.js}"</script>
-      <script>th:src="@{D://UTM/Java/licenta/JPA/demo/src/main/resources/static/js/expense-form.js}"</script>
+
 </body>
 </html>

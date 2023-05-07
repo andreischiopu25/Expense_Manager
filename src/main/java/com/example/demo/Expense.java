@@ -13,7 +13,7 @@ public class Expense {
     private Long id;
 
     @Column(unique = true)
-private String expenseId;
+    private String expenseId;
 
     private String name;
 

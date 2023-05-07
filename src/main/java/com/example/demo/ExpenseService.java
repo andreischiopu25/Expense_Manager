@@ -83,4 +83,25 @@ public class ExpenseService {
         return expenseRepository.findByExpenseId(id).orElseThrow( ()->new RuntimeException("Expense not found for the ID"));
     }
 
+    public List<ExpenseDTO> getFilteredExpenses(ExpenseFilterDTO expenseFilterDTO) throws ParseException {
+
+        String keyword = expenseFilterDTO.getKeyword();
+        String sortBy = expenseFilterDTO.getSortBy();
+        String startDate = expenseFilterDTO.getStartDate();
+        String endDate = expenseFilterDTO.getEndDate();
+
+        Date sDate= !startDate.isEmpty() ? DateTimeUtil.convertStringToDate(startDate): new Date(0);
+        Date eDate = !endDate.isEmpty()? DateTimeUtil.convertStringToDate(endDate) : new Date(System.currentTimeMillis());
+
+       List<Expense> list= expenseRepository.findByNameContainingAndDateBetween(keyword, sDate, eDate);
+       List<ExpenseDTO> filteredList= list.stream().map(this::mapToDTO).collect(Collectors.toList());
+       if (sortBy.equals("date")){
+            // sort by date
+           filteredList.sort((o1,o2) ->o2.getDate().compareTo(o1.getDate()));
+       }else {
+           filteredList.sort((o1,o2) -> o2.getAmount().compareTo(o1.getAmount()));
+       }
+       return filteredList;
+    }
+
 }

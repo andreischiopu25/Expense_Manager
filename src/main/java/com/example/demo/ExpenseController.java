@@ -27,6 +27,7 @@ public class ExpenseController {
     @GetMapping("/expenses")
     public String showExpenseList(Model model){
         model.addAttribute("expenses", expenseService.getAllExpense());
+        model.addAttribute("filter", new ExpenseFilterDTO());
         return "expenses-list";
     }
 
@@ -59,10 +60,10 @@ public class ExpenseController {
     }
 
 
-    @GetMapping("/getall")
+  /*  @GetMapping("/getAll")
     public List<ExpenseDTO> showAllExpense(){
         return  expenseService.getAllExpense();
-    }
+    }*/
 
 
 }
