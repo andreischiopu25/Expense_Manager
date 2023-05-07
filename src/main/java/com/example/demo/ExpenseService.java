@@ -2,11 +2,15 @@ package com.example.demo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -103,5 +107,16 @@ public class ExpenseService {
        }
        return filteredList;
     }
+
+    public String totalExpenses (List<ExpenseDTO> expenses){
+        BigDecimal sum = new BigDecimal(0);
+        BigDecimal total = expenses.stream().map(x -> x.getAmount().add(sum))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+        NumberFormat format = NumberFormat.getCurrencyInstance(Locale.ENGLISH);
+        return format.format(total).substring(1);
+
+    }
+
 
 }
