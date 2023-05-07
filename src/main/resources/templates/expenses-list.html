@@ -22,14 +22,15 @@
                     maxDate:new Date()
                 })
             })
-
     </script>
-
 </head>
 <body>
 
         <h1> List of Expenses</h1>
         <hr/>
+        <div>
+                <h2>You are viewing the expenses totalling of &#x20AC; 2000.00</h2>
+        </div>
 
           <form method="get" th:object="${filter}"  th:action="@{/filterExpenses}">
              Search by Keyword:
