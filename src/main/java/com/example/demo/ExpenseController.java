@@ -1,8 +1,10 @@
 package com.example.demo;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,8 +44,14 @@ public class ExpenseController {
     }
 
     @PostMapping("/saveOrUpdateExpense")
-    public String saveOrUpdateExpenseDetails(@ModelAttribute("expense") ExpenseDTO expenseDTO) throws ParseException {
+    public String saveOrUpdateExpenseDetails(@Valid @ModelAttribute("expense") ExpenseDTO expenseDTO,
+                                            BindingResult result) throws ParseException {
         System.out.println("Printing the Expense DTO: "+expenseDTO);
+
+        new ExpenseValidator().validate(expenseDTO, result);
+        if (result.hasErrors()){
+            return "expense-form";
+        }
         expenseService.saveExpenseDetails(expenseDTO);
         return "redirect:/expenses";
     }
