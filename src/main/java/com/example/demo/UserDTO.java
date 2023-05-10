@@ -16,7 +16,6 @@ public class UserDTO {
 
     private String confirmpassword;
 
-
     public UserDTO() {
     }
 

@@ -2,7 +2,6 @@ package com.example.demo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,10 +20,13 @@ public class ExpenseService {
     private  ExpenseRepository expenseRepository;
     private final ModelMapper modelMapper;
 
+    private final UserService userService;
+
     @Autowired
-    public ExpenseService(ExpenseRepository expenseRepository, ModelMapper modelMapper) {
+    public ExpenseService(ExpenseRepository expenseRepository, ModelMapper modelMapper, UserService userService) {
             this.expenseRepository = expenseRepository;
             this.modelMapper = modelMapper;
+            this.userService = userService;
     }
 
     public List<ExpenseDTO> getAllExpense(){
@@ -32,8 +34,7 @@ public class ExpenseService {
            List<ExpenseDTO> expenseList = list.stream().map(this::mapToDTO).collect(Collectors.toList());
            return expenseList;
         }
-
-        private ExpenseDTO mapToDTO (Expense expense){
+    private ExpenseDTO mapToDTO (Expense expense){
           ExpenseDTO expenseDTO = new ExpenseDTO();
           expenseDTO.setId(expense.getId());
           expenseDTO.setExpenseId(expense.getExpenseId());
@@ -49,7 +50,8 @@ public class ExpenseService {
                 //map the DTO to entity
 
                 Expense expense = mapToEntity (expenseDTO);
-
+                //add the logged in user to the expense entity
+                expense.setUser(userService.getLoggedInUser());
                 //Save the entity to Database
                 expense = expenseRepository.save(expense);
                 //map the entity to DTO
@@ -115,7 +117,6 @@ public class ExpenseService {
 
         NumberFormat format = NumberFormat.getCurrencyInstance(Locale.ENGLISH);
         return format.format(total).substring(1);
-
     }
 
 

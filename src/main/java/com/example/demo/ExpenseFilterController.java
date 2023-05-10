@@ -19,7 +19,6 @@ public class ExpenseFilterController {
         this.expenseService = expenseService;
     }
 
-
     @GetMapping("/filterExpenses")
     public String filterExpenses(@ModelAttribute("filter")ExpenseFilterDTO expenseFilterDTO, Model model) throws ParseException {
         System.out.println("Printing the filter dto:"+expenseFilterDTO);

@@ -1,6 +1,9 @@
 package com.example.demo;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -25,6 +28,13 @@ public class UserService {
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
         return user;
+    }
+
+    public User getLoggedInUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUserEmail = auth.getName();
+        return userRepository.findByEmail(loggedInUserEmail).orElseThrow(() ->
+                new UsernameNotFoundException("User not found for the email:"+loggedInUserEmail));
     }
 
 }

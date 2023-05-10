@@ -3,6 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Login page</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+
+    <script>
+        $(function() {
+
+            const $loginForm = $("#loginForm");
+
+            if($loginForm.length) {
+
+                $loginForm.validate({
+
+                    rules: {
+                        email: {
+                            required: true
+                        },
+                        password: {
+                            required: true
+                        }
+                    },
+                    messages: {
+                        email: {
+                            required: 'Please enter the email'
+                        },
+                        password: {
+                            required: 'Please enter the password'
+                        }
+                    }
+
+                })
+
+            }
+
+        })
+
+    </script>
 </head>
 <body>
     <h1>Login</h1>
@@ -14,7 +50,7 @@
     </div>
 
     <div>
-        <form>
+        <form id="loginForm">
             <input type="text" name="email" placeholder="Enter email"/>
             <br/><br/>
             <input type="password" name="password" placeholder="Enter password"/>

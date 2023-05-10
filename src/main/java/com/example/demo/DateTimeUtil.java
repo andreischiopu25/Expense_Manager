@@ -14,6 +14,5 @@ public class DateTimeUtil {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         java.util.Date utilDate = sdf.parse(dateString);
         return new Date(utilDate.getTime());
-
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.PaymentSystem;
+package com.example.demo.PaymentSystem.domain;
 
 import java.io.Serializable;
 
