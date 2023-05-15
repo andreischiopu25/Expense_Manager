@@ -1,6 +1,8 @@
-package com.example.demo;
+package com.example.demo.controller;
 
 
+import com.example.demo.DTO.UserDTO;
+import com.example.demo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

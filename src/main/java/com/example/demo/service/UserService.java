@@ -1,9 +1,15 @@
-package com.example.demo;
+package com.example.demo.service;
 
-import org.modelmapper.ModelMapper;
+import com.example.demo.DTO.UserDTO;
+import com.example.demo.entity.User;
+import com.example.demo.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -12,11 +18,17 @@ import java.util.UUID;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    @Autowired
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
+    private final PasswordEncoder passwordEncoder;
+
+
     public void save(UserDTO userDTO) {
+        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         User user = mapToEntity(userDTO);
         user.setUserId(UUID.randomUUID().toString());
         userRepository.save(user);

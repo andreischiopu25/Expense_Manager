@@ -1,5 +1,10 @@
-package com.example.demo;
+package com.example.demo.service;
 
+import com.example.demo.DTO.ExpenseDTO;
+import com.example.demo.DTO.ExpenseFilterDTO;
+import com.example.demo.entity.Expense;
+import com.example.demo.repository.ExpenseRepository;
+import com.example.demo.util.DateTimeUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +22,7 @@ import java.util.stream.Collectors;
 public class ExpenseService {
 
 
-    private  ExpenseRepository expenseRepository;
+    private ExpenseRepository expenseRepository;
     private final ModelMapper modelMapper;
 
     private final UserService userService;

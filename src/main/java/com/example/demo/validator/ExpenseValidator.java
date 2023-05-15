@@ -1,6 +1,7 @@
-package com.example.demo;
+package com.example.demo.validator;
 
 
+import com.example.demo.DTO.ExpenseDTO;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 

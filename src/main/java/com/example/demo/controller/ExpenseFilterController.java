@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.DTO.ExpenseDTO;
+import com.example.demo.DTO.ExpenseFilterDTO;
+import com.example.demo.service.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +23,7 @@ public class ExpenseFilterController {
     }
 
     @GetMapping("/filterExpenses")
-    public String filterExpenses(@ModelAttribute("filter")ExpenseFilterDTO expenseFilterDTO, Model model) throws ParseException {
+    public String filterExpenses(@ModelAttribute("filter") ExpenseFilterDTO expenseFilterDTO, Model model) throws ParseException {
         System.out.println("Printing the filter dto:"+expenseFilterDTO);
         List<ExpenseDTO> list= expenseService.getFilteredExpenses(expenseFilterDTO);
         model.addAttribute("expenses", list);
